@@ -1,16 +1,40 @@
 <template>
-  <div class="media text-center">
-    <img :src="imgPath + item.poster_path" alt="item.title" />
-    <h4>{{ item.original_title }}</h4>
-    <div>{{ item.title }}</div>
-    <div>{{ item.vote_average }}</div>
-    <div class="flag" v-if="availableFlag.includes(item.original_language)">
+  <div
+    class="media text-center position-relative card my-card border-0 w-75 bg-transparent"
+  >
+    <img
+      class="poster w-100"
+      :src="
+        item.poster_path
+          ? imgPath + item.poster_path
+          : 'https://via.placeholder.com/342x500'
+      "
+      alt="item.title || item.name"
+    />
+    <h4 class="position-absolute original-title">
+      {{ item.original_title || item.original_name }}
+    </h4>
+    <div class="position-absolute mytitle">{{ item.title || item.name }}</div>
+    <div class="position-absolute mystar">
+      <span
+        class="fa-star"
+        :class="n <= star ? 'fa-solid' : 'fa-regular'"
+        v-for="n in 5"
+      ></span>
+    </div>
+    <div
+      class="flag position-absolute"
+      v-if="availableFlag.includes(item.original_language)"
+    >
       <img
         :src="'/images/' + item.original_language + '.png'"
         :alt="item.original_language"
       />
     </div>
-    <div v-else>{{ item.original_language }}</div>
+    <div class="position-absolute flag" v-else>
+      {{ item.original_language }}
+    </div>
+    <div class="position-absolute overview">{{ item.overview }}</div>
   </div>
 </template>
 
@@ -25,6 +49,11 @@ export default {
       imgPath: "https://image.tmdb.org/t/p/w342",
     };
   },
+  computed: {
+    star() {
+      return Math.ceil(this.item.vote_average / 2);
+    },
+  },
 };
 </script>
 
@@ -32,9 +61,60 @@ export default {
 h4 {
   text-transform: capitalize;
 }
-.flag {
-  img {
-    width: 50px;
+
+.my-card {
+  color: white;
+  overflow-y: scroll;
+  border-radius: 20px;
+
+  .original-title {
+    top: 1.3rem;
+    font-size: 23px;
+    font-weight: 600;
+  }
+  .mytitle {
+    top: 5rem;
+  }
+  .flag {
+    top: 8rem;
+
+    img {
+      width: 30px;
+    }
+  }
+  .mystar {
+    top: 11rem;
+    left: 0rem;
+  }
+  .original-title,
+  .mytitle,
+  .flag,
+  .overview,
+  .mystar {
+    display: none;
+  }
+  .overview {
+    font-size: 12px;
+    bottom: 5px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 0.8rem;
+  }
+}
+
+.my-card:hover {
+  transition: 0.5s;
+  .poster {
+    transition: 1s;
+    filter:brightness(10%);
+  }
+
+  .original-title,
+  .mytitle,
+  .flag,
+  .overview,
+  .mystar {
+    display: block;
   }
 }
 img {

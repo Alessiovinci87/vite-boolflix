@@ -1,14 +1,17 @@
 <template>
   <section id="header" class="d-flex justify-content-between">
-    <h1 class="text-uppercase ms-3 mt-1 ">Boolflix</h1>
+    <h1 class="boolflix text-uppercase ms-3 mt-2">
+      <img :src="'/public/images/boolflix.png'" alt="" />
+    </h1>
     <SearchBarComponent />
   </section>
 </template>
 
 <script>
 import SearchBarComponent from "./SearchBarComponent.vue";
-
-export default { components: { SearchBarComponent } };
+export default {
+  components: { SearchBarComponent },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -16,9 +19,9 @@ export default { components: { SearchBarComponent } };
 
 #header {
   width: 100%;
-  
-  background-color: rgba(0, 0, 0, 0.8);
-  height: 60px;
+
+  background-color: rgba(35, 35, 35, 0.8);
+  height: 100px;
 
   h1 {
     color: $netflixred;
@@ -27,7 +30,5 @@ export default { components: { SearchBarComponent } };
   select {
     width: 100%;
   }
-
-  
 }
 </style>

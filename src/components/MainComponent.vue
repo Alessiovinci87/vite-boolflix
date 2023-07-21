@@ -1,10 +1,10 @@
 <template>
   <section class="container-fluid p-5">
-    <h2>movies</h2>
+    <h2>{{ title }}</h2>
 
     <div class="row">
       <div
-        class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 mt-3"
+        class="col-12 col-sm-6 col-md-3 col-lg-3 mb-5 mt-3"
         v-for="(item, index) in items"
         :key="item.id"
       >
@@ -21,19 +21,26 @@ export default {
   name: "MainComponent",
   props: {
     items: Array,
+    title: String,
   },
   components: {
     CardsComponent,
   },
   data() {
-    return {
-      
-    }
+    return {};
   },
 };
 </script>
 
 <style lang="scss" scoped>
+section {
+  overflow: hidden;
+  .row {
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    scroll-behavior: smooth;
+  }
+}
 h2 {
   text-transform: capitalize;
 }
